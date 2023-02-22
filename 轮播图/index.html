@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .container {
+            height: 200px;
+        }
+        .imgs {
+            position: relative;
+            width: 200px;
+            height: 180px;
+            background-color: red;
+            overflow: hidden;
+        }
+
+        .imgs ul {
+            position: absolute;
+            /* display: inline; */
+            left: 0;
+            top: 0;
+            list-style: none;
+            display: flex;
+            flex-direction: row;
+            transition: all 1s ease;
+
+        }
+
+        .imgs ul li img {
+            width: 200px;
+            height: 180px;
+        }
+
+        .left,
+        .right {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="imgs">
+            <ul>
+                <li><img src="./image/3755d31b67c169c1d35d8116ecb0147d.jpeg" alt=""></li>
+                <li><img src="./image/7d69ae4b95d704627204d37677b6df64.jpeg" alt=""></li>
+                <li><img src="./image/98c5a577dc857d2a4bc63c325dca60a1.jpeg" alt=""></li>
+                <li><img src="./image/ecb21a2a68cc8915b1a1a9b6ac2e4ce8.jpeg" alt=""></li>
+                <li><img src="./image/ee39ff9c87363f7c77fd9b35e1afd01f.jpeg" alt=""></li>
+            </ul>
+        </div>
+        <div>
+            <span class="left">上一张</span>
+            <span class="right">下一张</span>
+        </div>
+    </div>
+    <script>
+        const ul = document.querySelector("ul")
+        const lis = document.querySelectorAll('li')
+        const pre = document.querySelector(".left")
+        const next = document.querySelector(".right")
+        const container = document.querySelector('.container')
+        var index = 0
+
+        next.addEventListener('click', () => {
+            index++
+            if (index === lis.length) {
+                index = 0
+            }
+            ul.style.left = index * -200 + 'px'
+        })
+
+        pre.addEventListener('click', () => {
+            index--
+            if (index < 0) {
+                index = lis.length - 1
+            }
+            ul.style.left = index * -200 + 'px'
+        })
+
+        var timer = setInterval(() => {
+            next.click()
+        }, 2000)
+
+        container.addEventListener('mouseover', () => {
+            clearInterval(timer)
+        })
+
+        container.addEventListener('mouseleave', () => {
+            timer = setInterval(() => {
+                next.click()
+            }, 1000)
+        })
+
+    </script>
+</body>
+
+</html>
